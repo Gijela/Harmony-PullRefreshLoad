@@ -1,6 +1,6 @@
 // modal
-export { PullRefreshModel } from './modal/PullRefreshModel'
-export { PullRefreshConstant, RefreshState } from './modal/PullRefreshConstant'
+export { PullRefreshLoadModel } from './modal/PullRefreshLoadModel'
+export { PullRefreshLoadConstant, RefreshState, LoadMoreState } from './modal/PullRefreshLoadConstant'
 
 // view
 export { PullRefreshLoad } from './pages/PullRefreshLoad'

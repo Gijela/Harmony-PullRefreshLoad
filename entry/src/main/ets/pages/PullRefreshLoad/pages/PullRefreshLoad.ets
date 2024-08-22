@@ -1,12 +1,12 @@
 import { handleTouchEvent } from '../viewmodal/TouchVM'
-import { PullRefreshModel } from '../modal/PullRefreshModel'
-import { RefreshState } from '../modal/PullRefreshConstant'
+import { PullRefreshLoadModel } from '../modal/PullRefreshLoadModel'
+import { LoadMoreState, RefreshState } from '../modal/PullRefreshLoadConstant'
 import { CardBaseLayout } from './CardBaseLayout'
 
 @Component
 export struct PullRefreshLoad {
-  // 双向绑定的组件驱动 modal
-  @Link dataModel: PullRefreshModel
+  // 双向绑定的组件驱动 model
+  @Link dataModel: PullRefreshLoadModel
 
   /* [下拉] 下拉过程中顶部内容UI */
   @BuilderParam pullingDownLayout: () => void = this.defaultPullingDownLayout
@@ -22,15 +22,23 @@ export struct PullRefreshLoad {
   /* 内容UI */
   @BuilderParam contentLayout: () => void = this.defaultEmptyElement
 
-  /* [上拉] 底部加载中UI */
-  @BuilderParam customLoadMoreLayout: () => void = this.defaultLoadMoreLayout
+  /* [上拉] 上拉过程中底部内容UI */
+  @BuilderParam pullingUpLayout: () => void = this.defaultPullingUpLayout
+  /* [上拉] 释放过程中底部内容UI */
+  @BuilderParam loosingUpLayout: () => void = this.defaultLoosingUpLayout
+  /* [上拉] 加载ing底部内容UI */
+  @BuilderParam loadingMoreLayout: () => void = this.defaultLoadingMoreLayout
+  /* [上拉] 加载成功底部内容UI */
+  @BuilderParam loadMoreSuccessLayout: () => void = this.defaultLoadMoreSuccessLayout
+  /* [上拉] 加载失败底部内容UI */
+  @BuilderParam loadMoreFailLayout: () => void = this.defaultLoadMoreFailLayout
   /* [上拉] 没有更多数据UI */
-  @BuilderParam customNoMoreLayout: () => void = this.defaultNoMoreLayout
+  @BuilderParam noMoreLayout: () => void = this.defaultNoMoreLayout
 
   /* [回调钩子] 下拉刷新 */
-  refreshCallBack?: (loadFreshModal: PullRefreshModel) => void
+  refreshCallBack?: (loadFreshModal: PullRefreshLoadModel) => void
   /* [回调钩子] 上拉加载 */
-  loadMoreCallBack?: (loadFreshModal: PullRefreshModel) => void
+  loadMoreCallBack?: (loadFreshModal: PullRefreshLoadModel) => void
 
   build() {
     Scroll() {
@@ -53,10 +61,20 @@ export struct PullRefreshLoad {
 
         // 上拉显示的加载更多UI
         if (!this.dataModel.banLoadMore) {
-          if (this.dataModel.hasMore) {
-            this.customLoadMoreLayout()
+          if (!this.dataModel.hasMore) {
+            this.noMoreLayout()
           } else {
-            this.customNoMoreLayout()
+            if (this.dataModel.loadMoreStateNum ===  LoadMoreState.DropUp) {
+              this.pullingUpLayout()
+            } else if (this.dataModel.loadMoreStateNum ===  LoadMoreState.Release) {
+              this.loosingUpLayout()
+            } else if (this.dataModel.loadMoreStateNum ===  LoadMoreState.LoadingMore) {
+              this.loadingMoreLayout()
+            } else if (this.dataModel.loadMoreStateNum ===  LoadMoreState.Success) {
+              this.loadMoreSuccessLayout()
+            } else if (this.dataModel.loadMoreStateNum ===  LoadMoreState.Fail) {
+              this.loadMoreFailLayout()
+            }
           }
         }
       }
@@ -135,10 +153,46 @@ export struct PullRefreshLoad {
   }
 
   @Builder
-  defaultLoadMoreLayout() {
+  defaultPullingUpLayout() {
+    CardBaseLayout({
+      imageSrc: $r('app.media.icon_pull_up_refresh'),
+      textValue: this.dataModel.pullUpLoadMoreText,
+      layoutHeight: this.dataModel.pullUpLoadHeight
+    })
+  }
+
+  @Builder
+  defaultLoosingUpLayout() {
+    CardBaseLayout({
+      imageSrc: $r('app.media.icon_pull_down_refresh'),
+      textValue: this.dataModel.releaseLoadMoreText,
+      layoutHeight: this.dataModel.pullUpLoadHeight
+    })
+  }
+
+  @Builder
+  defaultLoadingMoreLayout() {
     CardBaseLayout({
       imageSrc: $r('app.media.icon_pull_up_load'),
-      textValue: this.dataModel.pullUpLoadText,
+      textValue: this.dataModel.LoadingMoreText,
+      layoutHeight: this.dataModel.pullUpLoadHeight
+    })
+  }
+
+  @Builder
+  defaultLoadMoreSuccessLayout() {
+    CardBaseLayout({
+      imageSrc: $r('app.media.icon_succeed_refresh'),
+      textValue: this.dataModel.loadMoreSuccessText,
+      layoutHeight: this.dataModel.pullUpLoadHeight
+    })
+  }
+
+  @Builder
+  defaultLoadMoreFailLayout() {
+    CardBaseLayout({
+      imageSrc: $r('app.media.icon_fail_refresh'),
+      textValue: this.dataModel.loadMoreFailText,
       layoutHeight: this.dataModel.pullUpLoadHeight
     })
   }
