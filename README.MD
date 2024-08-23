@@ -4,7 +4,12 @@
 上拉加载、下拉刷新基础组件。
 不过度封装业务逻辑，提供最基础的上拉下拉回调钩子，支持自定义刷新文案、加载文案，支持自定义刷新UI、加载UI
 
-## 引入
+## 依赖下载
+```
+ohpm install @gijela/pullrefreshload
+```
+
+## 使用
 ```typescript
 import { PullRefreshLoad } from '@gijela/pullrefreshload'
 ```

@@ -30,6 +30,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "PullRefreshLoad",
+      "srcPath": "./PullRefreshLoad",
     }
   ]
 }

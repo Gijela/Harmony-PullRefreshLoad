@@ -59,14 +59,21 @@ export function handleTouchEvent(dataModel: PullRefreshLoadModel, event: TouchEv
         return;
       }
 
-      // 下拉偏移量达到阈值，触发回调钩子
+      // 下拉偏移量达到阈值，触发回调钩子，未达到阈值，直接关闭刷新过程UI
       if (dataModel.refreshStateNum === RefreshState.Release) {
         !dataModel.banRefresh && touchUpPullRefresh(dataModel, getDataCallBack);
+      } else if (dataModel.refreshStateNum === RefreshState.DropDown) {
+        dataModel.refreshStateNum = RefreshState.default
+        dataModel.offsetY = 0
       }
 
-      // 上拉偏移量达到阈值，触发回调钩子
+
+      // 上拉偏移量达到阈值，触发回调钩子，未达到阈值，直接关闭加载更多UI
       if (dataModel.loadMoreStateNum === LoadMoreState.Release) {
         !dataModel.banLoadMore && touchUpLoadMore(dataModel, getDataCallBack);
+      } else if (dataModel.loadMoreStateNum === LoadMoreState.DropUp) {
+        dataModel.loadMoreStateNum = LoadMoreState.default
+        dataModel.offsetY = 0
       }
 
       break;
