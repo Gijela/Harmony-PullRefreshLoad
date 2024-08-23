@@ -1,4 +1,7 @@
-import { PullRefreshLoadModel, PullRefreshLoad, closeRefresh, closeLoadMore } from '../index'
+import { PullRefreshLoadModel } from '../modal/PullRefreshLoadModel'
+import { PullRefreshLoad } from '../pages/PullRefreshLoad'
+import { closeRefresh } from '../viewmodal/RefreshVM'
+import { closeLoadMore } from '../viewmodal/LoadMoreVM'
 
 @Entry
 @Component
@@ -65,7 +68,7 @@ struct Example {
         Row() {
           Text(item)
             .border({ width: 2, color: 'red' })
-            .height('10%')
+            .height('60%')
             .width('100%')
             .textAlign(TextAlign.Center)
         }
