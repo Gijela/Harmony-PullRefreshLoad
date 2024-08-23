@@ -14,7 +14,7 @@ struct Example {
   @State dataModel: PullRefreshLoadModel = new PullRefreshLoadModel()
 
   // 刷新请求
-  refreshQuery(dataModel: PullRefreshLoadModel) {
+  refreshQuery() {
     setTimeout(() => {
       // 数据请求
       this.reset()
@@ -31,16 +31,16 @@ struct Example {
   }
 
   // 加载更多请求
-  loadMoreQuery(dataModel: PullRefreshLoadModel) {
+  loadMoreQuery() {
     setTimeout(() => {
       // 数据请求
       this.data.push('添加的内容')
       this.moreCnt--
 
       // 处理
-      closeLoadMore(dataModel, true)
-      dataModel.hasMore = this.moreCnt > 0
-      dataModel.isReachEnd = dataModel.hasMore
+      closeLoadMore(this.dataModel, true)
+      this.dataModel.hasMore = this.moreCnt > 0
+      this.dataModel.isReachEnd = this.dataModel.hasMore
     }, 1000)
   }
 
@@ -51,6 +51,7 @@ struct Example {
         contentLayout: this.Content.bind(this),
         refreshCallBack: this.refreshQuery.bind(this),
         loadMoreCallBack: this.loadMoreQuery.bind(this),
+        // refreshingLayout: this.customRefreshLayout
       })
     }
   }
@@ -64,7 +65,7 @@ struct Example {
         Row() {
           Text(item)
             .border({ width: 2, color: 'red' })
-            .height('60%')
+            .height('10%')
             .width('100%')
             .textAlign(TextAlign.Center)
         }
@@ -78,4 +79,11 @@ struct Example {
 
     }
   }
+
+  // @Builder
+  // customRefreshLayout() {
+  //   Row() {
+  //     Text('覆盖默认刷新ing状态时的UI')
+  //   }
+  // }
 }

@@ -38,7 +38,7 @@ export class PullRefreshLoadModel {
    */
   refreshStateNum: RefreshState = RefreshState.default;
   /**
-   * [下拉-动画时间] 延迟多少秒后，再执行「加载ing动画」的结束逻辑
+   * [下拉-动画时间] 延迟多少秒后，再执行「刷新ing动画」的结束逻辑
    */
   pullDownRefreshingDelay: number = Const.Enter_Refreshing_Delay
   /**
@@ -85,11 +85,11 @@ export class PullRefreshLoadModel {
    */
   loadMoreStateNum: LoadMoreState = LoadMoreState.default;
   /**
-   * [下拉-动画时间] 延迟多少秒后，再执行「加载ing动画」的结束逻辑
+   * [上拉-动画时间] 延迟多少秒后，再执行「加载ing动画」的结束逻辑
    */
   pullUpLoadingDelay: number = Const.Enter_loadingMore_Delay
   /**
-   * [下拉-动画时间] 刷新完成后提示持续时间
+   * [上拉-动画时间] 加载完成后提示持续时间
    */
   pullUpAnimationOverDelay: number = Const.LoadOver_Duration
   /**
