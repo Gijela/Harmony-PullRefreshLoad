@@ -4,6 +4,10 @@
 上拉加载、下拉刷新基础组件。
 不过度封装业务逻辑，提供最基础的上拉下拉回调钩子，支持自定义刷新文案、加载文案，支持自定义刷新UI、加载UI
 
+预览Demo: 
+https://github.com/user-attachments/assets/469428da-5186-45d4-b2a3-368c503b6b3d
+
+
 ## 依赖下载
 ```
 ohpm install @gijela/pullrefreshload
