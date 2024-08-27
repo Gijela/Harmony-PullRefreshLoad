@@ -6,7 +6,6 @@
 
 预览Demo: 
 
-
 https://github.com/user-attachments/assets/8f5939b5-31b8-4ee9-8f97-e81bd407eb2a
 
 
@@ -24,7 +23,7 @@ import { PullRefreshLoad } from '@gijela/pullrefreshload'
 ### 基础用法
 下拉刷新时会触发 refreshCallBack 事件，在事件的回调函数中可以进行同步或异步操作，操作完成后，需执行`closeRefresh`方法关闭刷新、 重新赋值`this.dataModel.hasMore`；
 
-上拉刷新时会触发 loadMoreCallBack 事件，在事件的回调函数中可以进行同步或异步操作，操作完成后，需执行`closeLoadMore`方法关闭加载更多、 重新赋值 `this.dataModel.hasMore` 和 `this.dataModel.isReachEnd`；
+上拉刷新时会触发 loadMoreCallBack 事件，在事件的回调函数中可以进行同步或异步操作，操作完成后，需执行`closeLoadMore`方法关闭加载更多、 重新赋值 `this.dataModel.hasMore`；
 ```
 PullRefreshLoad({
   dataModel: this.dataModel,
@@ -67,7 +66,6 @@ loadMoreQuery() {
     // 处理
     closeLoadMore(this.dataModel, true)
     this.dataModel.hasMore = this.moreCnt > 0
-    this.dataModel.isReachEnd = this.dataModel.hasMore
   }, 1000)
 }
 

@@ -43,7 +43,6 @@ struct Example {
       // 处理
       closeLoadMore(this.dataModel, true)
       this.dataModel.hasMore = this.moreCnt > 0
-      // this.dataModel.isReachEnd = this.dataModel.hasMore
     }, 1000)
   }
 

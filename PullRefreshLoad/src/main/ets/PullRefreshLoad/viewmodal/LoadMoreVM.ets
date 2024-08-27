@@ -57,6 +57,7 @@ export function closeLoadMore(dataModel: PullRefreshLoadModel, isLoadMoreSuccess
       duration: dataModel.pullUpAnimationOverDelay, // 加载完成提示持续时间
       onFinish: () => {
         dataModel.loadMoreStateNum = LoadMoreState.default
+        dataModel.isReachEnd = !dataModel.hasMore
       }
     }, () => {
       dataModel.offsetY = 0;

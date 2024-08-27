@@ -4,6 +4,8 @@
 上拉加载、下拉刷新基础组件。
 不过度封装业务逻辑，提供最基础的上拉下拉回调钩子，支持自定义刷新文案、加载文案，支持自定义刷新UI、加载UI
 
+仓库地址：[https://github.com/Gijela/Harmony-PullRefreshLoad](https://github.com/Gijela/Harmony-PullRefreshLoad)
+
 ## 依赖下载
 ```
 ohpm install @gijela/pullrefreshload
@@ -61,7 +63,6 @@ loadMoreQuery() {
     // 处理
     closeLoadMore(this.dataModel, true)
     this.dataModel.hasMore = this.moreCnt > 0
-    this.dataModel.isReachEnd = this.dataModel.hasMore
   }, 1000)
 }
 

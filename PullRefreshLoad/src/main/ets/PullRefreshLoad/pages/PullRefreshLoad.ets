@@ -80,10 +80,16 @@ export struct PullRefreshLoad {
       }
     }
     .onScroll((_, yOffset) => {
-      // 一旦产生上拉偏移量，就重置 isReachStart
+      // 一旦向上滑动手指，就重置 isReachStart
       if (yOffset > 0) {
         this.dataModel.isReachStart = false
       }
+
+      // 一旦向下滑动手指，就重置 isReachEnd
+      if (yOffset < 0) {
+        this.dataModel.isReachEnd = false
+      }
+
     })
     .onReachStart(() => {
       this.dataModel.isReachStart = true
