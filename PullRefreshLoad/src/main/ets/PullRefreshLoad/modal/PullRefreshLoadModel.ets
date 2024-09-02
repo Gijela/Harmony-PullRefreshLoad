@@ -8,12 +8,12 @@ export class PullRefreshLoadModel {
    */
   offsetY: number = 0;
   /**
-   * 首个触摸点的纵坐标
+   * 手指首次按下时，首个触摸点的纵坐标
    * (TouchType.Down 事件)赋值
    */
   downY: number = 0;
   /**
-   * 最新的触摸点纵坐标
+   * 手指移动过程中，前一个的触摸点纵坐标
    * (TouchType.Down 事件)首次点击屏幕时修改、
    * (TouchType.Move 事件)移动手指时修改
    */

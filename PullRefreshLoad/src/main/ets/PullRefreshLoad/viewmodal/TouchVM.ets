@@ -25,9 +25,9 @@ export function handleTouchEvent(dataModel: PullRefreshLoadModel, event: TouchEv
   switch (event.type) {
     // 手指首次按下屏幕
     case TouchType.Down:
-      // 初始化首个触摸点的纵坐标
+      // 手指按下的首个触摸点纵坐标
       dataModel.downY = event.touches[0].y;
-      // 初始化最新触摸点的纵坐标
+      // 初始化手指移动过程中，前一个触摸点的纵坐标
       dataModel.lastMoveY = event.touches[0].y;
       break;
 
@@ -43,12 +43,24 @@ export function handleTouchEvent(dataModel: PullRefreshLoadModel, event: TouchEv
       let isDownPull = event.touches[0].y - dataModel.lastMoveY > 0;
 
       if (isDownPull) {
+        // 边界：在上拉过程中，开始向下拉
+        if ([LoadMoreState.DropUp, LoadMoreState.Release].includes(dataModel.loadMoreStateNum)) {
+          dataModel.loadMoreStateNum = LoadMoreState.default
+          dataModel.offsetY = 0
+        }
+
         !dataModel.banRefresh && touchMovePullRefresh(dataModel, event);
       } else {
+        // 边界：在下拉过程中，开始向上拉
+        if ([RefreshState.DropDown, RefreshState.Release].includes(dataModel.refreshStateNum)) {
+          dataModel.refreshStateNum = RefreshState.default
+          dataModel.offsetY = 0
+        }
+
         !dataModel.banLoadMore && touchMoveLoadMore(dataModel, event);
       }
 
-      // 更新最新触摸点的纵坐标
+      // 更新移动后最新触摸点的纵坐标
       dataModel.lastMoveY = event.touches[0].y;
       break;
 
